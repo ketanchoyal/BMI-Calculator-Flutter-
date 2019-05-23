@@ -38,34 +38,30 @@ class _InputScreenState extends State<InputScreen> {
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    child: GestureDetector(
-                      onTap: (){
+                    child: ReusableCard(
+                      onPress: () {
                         setState(() {
                           selectedGender = Gender.Male;
                         });
                       },
-                      child: ReusableCard(
-                        colour: selectedGender == Gender.Male ? activeCardColor : inactiveCardColor,
-                        cardChild: new ReusableCardChild(
-                          icon: FontAwesomeIcons.mars,
-                          title: 'MALE',
-                        ),
+                      colour: selectedGender == Gender.Male ? activeCardColor : inactiveCardColor,
+                      cardChild: new ReusableCardChild(
+                        icon: FontAwesomeIcons.mars,
+                        title: 'MALE',
                       ),
                     ),
                   ),
                   Expanded(
-                    child: GestureDetector(
-                      onTap: () {
+                    child: ReusableCard(
+                      onPress: () {
                         setState(() {
                           selectedGender = Gender.Female;
                         });
                       },
-                      child: ReusableCard(
-                        colour: selectedGender == Gender.Female ? activeCardColor : inactiveCardColor,
-                        cardChild: ReusableCardChild(
-                          icon: FontAwesomeIcons.venus,
-                          title: 'FEMALE',
-                        ),
+                      colour: selectedGender == Gender.Female ? activeCardColor : inactiveCardColor,
+                      cardChild: ReusableCardChild(
+                        icon: FontAwesomeIcons.venus,
+                        title: 'FEMALE',
                       ),
                     ),
                   ),
