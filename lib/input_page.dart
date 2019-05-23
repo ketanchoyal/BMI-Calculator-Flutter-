@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'reusable_card.dart';
 import 'reusable_card_child.dart';
-
-const inactiveCardColor = Color(0xFF111328);
-const activeCardColor = Color(0xFF1D1E33);
-const buttonContainerColor = Color(0xFFEB1555);
+import 'constants.dart';
 
 enum Gender {
   Male,
@@ -20,6 +17,9 @@ class InputScreen extends StatefulWidget {
 class _InputScreenState extends State<InputScreen> {
 
   Gender selectedGender;
+  int height = 180;
+  int weight = 50;
+  int age = 16;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +32,7 @@ class _InputScreenState extends State<InputScreen> {
       body: SafeArea(
         bottom: false,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Expanded(
               flex: 6,
@@ -44,7 +45,7 @@ class _InputScreenState extends State<InputScreen> {
                           selectedGender = Gender.Male;
                         });
                       },
-                      colour: selectedGender == Gender.Male ? activeCardColor : inactiveCardColor,
+                      colour: selectedGender == Gender.Male ? kActiveCardColor : kInactiveCardColor,
                       cardChild: new ReusableCardChild(
                         icon: FontAwesomeIcons.mars,
                         title: 'MALE',
@@ -58,7 +59,7 @@ class _InputScreenState extends State<InputScreen> {
                           selectedGender = Gender.Female;
                         });
                       },
-                      colour: selectedGender == Gender.Female ? activeCardColor : inactiveCardColor,
+                      colour: selectedGender == Gender.Female ? kActiveCardColor : kInactiveCardColor,
                       cardChild: ReusableCardChild(
                         icon: FontAwesomeIcons.venus,
                         title: 'FEMALE',
@@ -71,7 +72,54 @@ class _InputScreenState extends State<InputScreen> {
             Expanded(
               flex: 6,
               child: ReusableCard(
-                colour: activeCardColor,
+                colour: kActiveCardColor,
+                cardChild: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'HEIGHT',
+                      style: kLabelTextStyle,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.alphabetic,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          height.toString(),
+                          style: kNumberTextStyle,
+                        ),
+                        Text(
+                          'cm',
+                          style: kLabelTextStyle,
+                        )
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: SliderTheme(
+                        data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: Colors.white,
+                          inactiveTrackColor: Color(0xFFB7BAC6),
+                          thumbColor: Color(0xFFEB1555),
+                          overlayColor: Color(0x29EB1555),
+                          thumbShape: RoundSliderThumbShape(enabledThumbRadius: 10.0,disabledThumbRadius: 8.0),
+                          overlayShape: RoundSliderOverlayShape(overlayRadius: 18.0),
+                        ),
+                        child: Slider(
+                          value: height.toDouble(),
+                          max: 250.0,
+                          min: 120.0,
+                          onChanged: (double newValue) {
+                            setState(() {
+                              height = newValue.round();
+                            });
+                          },
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
             Expanded(
@@ -79,10 +127,88 @@ class _InputScreenState extends State<InputScreen> {
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    child: ReusableCard(colour: activeCardColor,),
+                    child: ReusableCard(
+                      colour: kActiveCardColor,
+                      cardChild: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'WEIGHT',
+                            style: kLabelTextStyle,
+                          ),
+                          Text(
+                            weight.toString(),
+                            style: kNumberTextStyle,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              RoundIconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    weight++;
+                                  });
+                                },
+                                icon: FontAwesomeIcons.plus,
+                              ),
+                              SizedBox(
+                                width: 15.0,
+                              ),
+                              RoundIconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    weight--;
+                                  });
+                                },
+                                icon: FontAwesomeIcons.minus,
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                   Expanded(
-                    child: ReusableCard(colour: activeCardColor,),
+                    child: ReusableCard(
+                      colour: kActiveCardColor,
+                      cardChild: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'AGE',
+                            style: kLabelTextStyle,
+                          ),
+                          Text(
+                            age.toString(),
+                            style: kNumberTextStyle,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              RoundIconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    age++;
+                                  });
+                                },
+                                icon: FontAwesomeIcons.plus,
+                              ),
+                              SizedBox(
+                                width: 15.0,
+                              ),
+                              RoundIconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    age--;
+                                  });
+                                },
+                                icon: FontAwesomeIcons.minus,
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -92,7 +218,7 @@ class _InputScreenState extends State<InputScreen> {
               child: Container(
                 margin: EdgeInsets.only(top: 5.0),
                 decoration: BoxDecoration(
-                    color: buttonContainerColor,
+                    color: kButtonContainerColor,
                 ),
               ),
             ),
@@ -102,3 +228,25 @@ class _InputScreenState extends State<InputScreen> {
     );
   }
 }
+
+class RoundIconButton extends StatelessWidget {
+  RoundIconButton({@required this.onPressed, @required this.icon});
+
+  final Function onPressed;
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      onPressed: onPressed,
+      child: Icon(icon),
+      fillColor: Color(0xff212747),
+      constraints: BoxConstraints.tightFor(
+        width: 56.0,
+        height: 56.0,
+      ),
+      shape: CircleBorder(),
+    );
+  }
+}
+

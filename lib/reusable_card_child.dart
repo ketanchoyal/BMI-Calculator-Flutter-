@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-
-const textStyle = TextStyle(
-  color: Color(0xffB7BAC6),
-);
+import 'constants.dart';
 
 class ReusableCardChild extends StatelessWidget {
   ReusableCardChild({@required this.icon, @required this.title});
@@ -24,7 +21,7 @@ class ReusableCardChild extends StatelessWidget {
         ),
         Text(
           title,
-          style: textStyle,
+          style: kLabelTextStyle,
         )
       ],
     );
