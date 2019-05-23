@@ -3,9 +3,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'reusable_card.dart';
 import 'reusable_card_child.dart';
 
-const deactiveCardColor = Color(0xFF101427);
+const inactiveCardColor = Color(0xFF111328);
 const activeCardColor = Color(0xFF1D1E33);
-const bottonContainerColor = Color(0xFFDD2256);
+const buttonContainerColor = Color(0xFFEB1555);
+
+enum Gender {
+  Male,
+  Female
+}
 
 class InputScreen extends StatefulWidget {
   @override
@@ -13,6 +18,9 @@ class InputScreen extends StatefulWidget {
 }
 
 class _InputScreenState extends State<InputScreen> {
+
+  Gender selectedGender;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,20 +38,34 @@ class _InputScreenState extends State<InputScreen> {
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    child: ReusableCard(
-                      colour: activeCardColor,
-                      cardChild: new ReusableCardChild(
-                        icon: FontAwesomeIcons.mars,
-                        title: 'MALE',
+                    child: GestureDetector(
+                      onTap: (){
+                        setState(() {
+                          selectedGender = Gender.Male;
+                        });
+                      },
+                      child: ReusableCard(
+                        colour: selectedGender == Gender.Male ? activeCardColor : inactiveCardColor,
+                        cardChild: new ReusableCardChild(
+                          icon: FontAwesomeIcons.mars,
+                          title: 'MALE',
+                        ),
                       ),
                     ),
                   ),
                   Expanded(
-                    child: ReusableCard(
-                      colour: activeCardColor,
-                      cardChild: ReusableCardChild(
-                        icon: FontAwesomeIcons.venus,
-                        title: 'FEMALE',
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedGender = Gender.Female;
+                        });
+                      },
+                      child: ReusableCard(
+                        colour: selectedGender == Gender.Female ? activeCardColor : inactiveCardColor,
+                        cardChild: ReusableCardChild(
+                          icon: FontAwesomeIcons.venus,
+                          title: 'FEMALE',
+                        ),
                       ),
                     ),
                   ),
@@ -74,7 +96,7 @@ class _InputScreenState extends State<InputScreen> {
               child: Container(
                 margin: EdgeInsets.only(top: 5.0),
                 decoration: BoxDecoration(
-                    color: bottonContainerColor,
+                    color: buttonContainerColor,
                 ),
               ),
             ),
