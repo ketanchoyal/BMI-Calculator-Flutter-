@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-//import 'reusable_card.dart';
-//import 'reusable_card_child.dart';
+import 'reusable_card.dart';
+import 'reusable_card_child.dart';
 
 const deactiveCardColor = Color(0xFF101427);
 const activeCardColor = Color(0xFF1D1E33);
@@ -81,56 +81,6 @@ class _InputScreenState extends State<InputScreen> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class ReusableCard extends StatelessWidget {
-  ReusableCard({@required this.colour, this.cardChild});
-
-  final Color colour;
-  final Widget cardChild;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: cardChild,
-      margin: EdgeInsets.all(12.0),
-      decoration: BoxDecoration(
-          color: colour,
-          borderRadius: BorderRadius.circular(10.0)
-      ),
-    );
-  }
-}
-
-const textStyle = TextStyle(
-  color: Color(0xffB7BAC6),
-);
-
-class ReusableCardChild extends StatelessWidget {
-  ReusableCardChild({@required this.icon, @required this.title});
-
-  final IconData icon;
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Icon(
-          icon,
-          size: 90.0,
-        ),
-        SizedBox(
-          height: 15.0,
-        ),
-        Text(
-          title,
-          style: textStyle,
-        )
-      ],
     );
   }
 }
