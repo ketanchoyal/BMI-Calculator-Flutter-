@@ -1,13 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'reusable_card.dart';
 import 'reusable_card_child.dart';
 import 'constants.dart';
+import 'result_page.dart';
+import 'round_icon_button.dart';
+import 'bottom_button.dart';
 
-enum Gender {
-  Male,
-  Female
-}
+enum Gender { Male, Female }
 
 class InputScreen extends StatefulWidget {
   @override
@@ -15,7 +16,6 @@ class InputScreen extends StatefulWidget {
 }
 
 class _InputScreenState extends State<InputScreen> {
-
   Gender selectedGender;
   int height = 180;
   int weight = 50;
@@ -25,9 +25,7 @@ class _InputScreenState extends State<InputScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-            'BMI CALCULATOR'
-        ),
+        title: Text('BMI CALCULATOR'),
       ),
       body: SafeArea(
         bottom: false,
@@ -35,7 +33,7 @@ class _InputScreenState extends State<InputScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Expanded(
-              flex: 6,
+              flex: 3,
               child: Row(
                 children: <Widget>[
                   Expanded(
@@ -45,7 +43,9 @@ class _InputScreenState extends State<InputScreen> {
                           selectedGender = Gender.Male;
                         });
                       },
-                      colour: selectedGender == Gender.Male ? kActiveCardColor : kInactiveCardColor,
+                      colour: selectedGender == Gender.Male
+                          ? kActiveCardColor
+                          : kInactiveCardColor,
                       cardChild: new ReusableCardChild(
                         icon: FontAwesomeIcons.mars,
                         title: 'MALE',
@@ -59,7 +59,9 @@ class _InputScreenState extends State<InputScreen> {
                           selectedGender = Gender.Female;
                         });
                       },
-                      colour: selectedGender == Gender.Female ? kActiveCardColor : kInactiveCardColor,
+                      colour: selectedGender == Gender.Female
+                          ? kActiveCardColor
+                          : kInactiveCardColor,
                       cardChild: ReusableCardChild(
                         icon: FontAwesomeIcons.venus,
                         title: 'FEMALE',
@@ -70,7 +72,7 @@ class _InputScreenState extends State<InputScreen> {
               ),
             ),
             Expanded(
-              flex: 6,
+              flex: 3,
               child: ReusableCard(
                 colour: kActiveCardColor,
                 cardChild: Column(
@@ -103,8 +105,11 @@ class _InputScreenState extends State<InputScreen> {
                           inactiveTrackColor: Color(0xFFB7BAC6),
                           thumbColor: Color(0xFFEB1555),
                           overlayColor: Color(0x29EB1555),
-                          thumbShape: RoundSliderThumbShape(enabledThumbRadius: 10.0,disabledThumbRadius: 8.0),
-                          overlayShape: RoundSliderOverlayShape(overlayRadius: 18.0),
+                          thumbShape: RoundSliderThumbShape(
+                              enabledThumbRadius: 10.0,
+                              disabledThumbRadius: 8.0),
+                          overlayShape:
+                              RoundSliderOverlayShape(overlayRadius: 18.0),
                         ),
                         child: Slider(
                           value: height.toDouble(),
@@ -123,7 +128,7 @@ class _InputScreenState extends State<InputScreen> {
               ),
             ),
             Expanded(
-              flex: 6,
+              flex: 3,
               child: Row(
                 children: <Widget>[
                   Expanded(
@@ -213,53 +218,18 @@ class _InputScreenState extends State<InputScreen> {
                 ],
               ),
             ),
-            Expanded(
-              flex: 2,
-              child: Container(
-                margin: EdgeInsets.only(top: 5.0),
-                decoration: BoxDecoration(
-                    color: kButtonContainerColor,
+            new BottomButton(onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ResultPage(),
                 ),
-                child: Center(
-                  child: Container(
-                    margin: EdgeInsets.only(bottom: 12.0),
-                    child: Text(
-                      'CALCULATE YOUR BMI',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.0
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+              );
+            },
+            title:'CALCULATE',),
           ],
         ),
       ),
     );
   }
 }
-
-class RoundIconButton extends StatelessWidget {
-  RoundIconButton({@required this.onPressed, @required this.icon});
-
-  final Function onPressed;
-  final IconData icon;
-
-  @override
-  Widget build(BuildContext context) {
-    return RawMaterialButton(
-      onPressed: onPressed,
-      child: Icon(icon),
-      fillColor: Color(0xff212747),
-      constraints: BoxConstraints.tightFor(
-        width: 56.0,
-        height: 56.0,
-      ),
-      shape: CircleBorder(),
-    );
-  }
-}
-
