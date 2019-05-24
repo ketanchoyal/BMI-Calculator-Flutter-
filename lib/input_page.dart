@@ -26,7 +26,7 @@ class _InputScreenState extends State<InputScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            'BMI Calculator'
+            'BMI CALCULATOR'
         ),
       ),
       body: SafeArea(
@@ -219,6 +219,19 @@ class _InputScreenState extends State<InputScreen> {
                 margin: EdgeInsets.only(top: 5.0),
                 decoration: BoxDecoration(
                     color: kButtonContainerColor,
+                ),
+                child: Center(
+                  child: Container(
+                    margin: EdgeInsets.only(bottom: 12.0),
+                    child: Text(
+                      'CALCULATE YOUR BMI',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
